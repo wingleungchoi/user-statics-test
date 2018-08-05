@@ -12,3 +12,12 @@ functions:
           method: get
           path: transactions
           private: false
+  createAccount:
+    environment:
+      MONGODB_URI: ${env:MONGODB_URI}
+    handler: handler.insertAccount
+    events:
+      - http:
+          method: post
+          path: v1/transactions
+          private: false
