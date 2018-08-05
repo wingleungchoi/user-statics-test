@@ -1,3 +1,12 @@
+const mongoose = require('mongoose');
+
+// 1 = connected; reference: http://mongoosejs.com/docs/api.html#connection_Connection-readyState
+if (mongoose.connection.readyState !== 1 && process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+}
+
+const AccountController = require('./src/controllers/v1/accountController');
+
 module.exports.listTransactions = (event, context, callback) => {
   const response = {
     statusCode: 200,
@@ -13,3 +22,5 @@ module.exports.listTransactions = (event, context, callback) => {
 
   callback(null, response);
 };
+
+module.exports.insertAccount = AccountController.create;
