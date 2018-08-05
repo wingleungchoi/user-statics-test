@@ -1,0 +1,29 @@
+{
+  "name": "interview-transactions-wing-leung",
+  "version": "0.0.0",
+  "description": "- node version: v8.10 - deploy script:     - `$ AWS_ACCESS_KEY_ID=xxxxx AWS_SECRET_ACCESS_KEY=xxxxx  serverless deploy`     - note: serverless requires this AWS_ACCESS_KEY_ID has AdministratorAccess right in IAM",
+  "main": "handler.js",
+  "scripts": {
+    "test": "./node_modules/.bin/eslint . --ext .js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gini-app/interview-transactions-wing-leung.git"
+  },
+  "author": "wingleungchoi@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gini-app/interview-transactions-wing-leung/issues"
+  },
+  "homepage": "https://github.com/gini-app/interview-transactions-wing-leung#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "mocha": "^5.2.0",
+    "mongodb-memory-server": "^1.9.3"
+  },
+  "dependencies": {
+    "mongoose": "^5.2.6"
+  }
+}

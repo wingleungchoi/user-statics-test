@@ -3,11 +3,11 @@ module.exports.listTransactions = (event, context, callback) => {
     statusCode: 200,
     body: JSON.stringify([
       {
-        id: 1
+        id: 1,
       },
       {
-        id: 2
-      }
+        id: 2,
+      },
     ]),
   };
 
