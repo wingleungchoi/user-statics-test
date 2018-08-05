@@ -4,7 +4,7 @@
   "description": "- node version: v8.10 - deploy script:     - `$ AWS_ACCESS_KEY_ID=xxxxx AWS_SECRET_ACCESS_KEY=xxxxx  serverless deploy`     - note: serverless requires this AWS_ACCESS_KEY_ID has AdministratorAccess right in IAM",
   "main": "handler.js",
   "scripts": {
-    "test": "./node_modules/.bin/eslint . --ext .js"
+    "test": "mocha tests/**/*.js && ./node_modules/.bin/eslint src/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/gini-app/interview-transactions-wing-leung#readme",
   "devDependencies": {
+    "chai": "^4.1.2",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
