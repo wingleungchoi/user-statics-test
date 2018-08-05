@@ -1,0 +1,14 @@
+service: intervieweeBankService
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+
+functions:
+  listTransactions:
+    handler: handler.listTransactions
+    events:
+      - http:
+          method: get
+          path: transactions
+          private: false
