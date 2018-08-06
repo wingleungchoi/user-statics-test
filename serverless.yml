@@ -19,5 +19,14 @@ functions:
     events:
       - http:
           method: post
+          path: v1/accounts
+          private: false
+  createTransaction:
+    environment:
+      MONGODB_URI: ${env:MONGODB_URI}
+    handler: handler.insertTransaction
+    events:
+      - http:
+          method: post
           path: v1/transactions
           private: false

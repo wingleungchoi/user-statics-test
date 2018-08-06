@@ -6,6 +6,7 @@ if (mongoose.connection.readyState !== 1 && process.env.MONGODB_URI) {
 }
 
 const AccountController = require('./src/controllers/v1/accountController');
+const TransactionController = require('./src/controllers/v1/transactionController');
 
 module.exports.listTransactions = (event, context, callback) => {
   const response = {
@@ -24,3 +25,4 @@ module.exports.listTransactions = (event, context, callback) => {
 };
 
 module.exports.insertAccount = AccountController.create;
+module.exports.insertTransaction = TransactionController.create;

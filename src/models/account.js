@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 
+const { GINI } = require('../../src/constants');
+
 const { Schema } = mongoose;
 
 const AccountSchema = new Schema({
-  // for simplified: only two ccy in this test
-  ccy: { type: String, required: true, enum: ['HKD', 'USD'] },
+  ccy: { type: String, required: true, enum: GINI.CURRENCIES },
   balance: { type: Number, required: true, default: 0 },
   name: { type: String, required: true },
   user_id: { type: Schema.Types.ObjectId, required: true },
