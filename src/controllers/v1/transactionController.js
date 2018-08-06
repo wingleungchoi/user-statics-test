@@ -1,8 +1,8 @@
 const moment = require('moment');
-const R = require('ramda');
 
 const { Transaction } = require('../../models/transaction');
 const { Account } = require('../../models/account');
+const { GiniBaseError } = require('../../errors');
 
 const create = async (event) => {
   const {
@@ -22,8 +22,11 @@ const create = async (event) => {
 
   try {
     const account = await Account.findOne({ _id: account_id });
-    if (R.isEmpty(account)) {
-      throw new Error('Account is not found!');
+    if (account === null) {
+      throw (new GiniBaseError('Account is not found!'));
+    }
+    if (account._doc.ccy !== ccy) {
+      throw (new GiniBaseError('The curreny of the transaction is not matached with the account!'));
     }
     // TODO atomic transaction for insert Transaction + Account update
     const insertedTransaction = await transaction.save();
@@ -43,12 +46,12 @@ const create = async (event) => {
       }),
     };
     return response;
-  } catch (error) {
+  } catch (err) {
     const response = {
       statusCode: 404,
       body: JSON.stringify({
         success: false,
-        result: error,
+        result: err,
       }),
     };
     return response;
