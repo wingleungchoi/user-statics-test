@@ -25,7 +25,7 @@ describe('AccountController', async () => {
       expect(responseBody.result.name).equal(bodyInObject.name);
     });
   
-    it('return failure when an wrong request body is provided', async () => {
+    it('return failure when an duplicate request body is provided', async () => {
       const bodyInObject = {
         ccy: 'HKD',
         name: 'user HKD account 1',
