@@ -12,9 +12,6 @@ const TransactionSchema = new Schema({
   date: { type: Date, required: true },
 });
 
-// Indexes
-TransactionSchema.index({ ccy: 1, user_id: 1 }, { unique: true });
-
 const Transaction = mongoose.model('Transaction', TransactionSchema);
 
 module.exports.Transaction = Transaction;

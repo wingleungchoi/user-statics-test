@@ -114,4 +114,116 @@ describe('TransactionController', async () => {
       expect(responseBody.result.message).equal('The curreny of the transaction is not matached with the account!');
     });
   });
+
+  describe('list', async () => {
+    it('returns all accounts', async () => {
+      await Account.remove({});
+      await Transaction.remove({});
+      const account = await Account.create({
+        ccy: 'HKD',
+        name: 'user HKD account 1',
+        user_id: '5b6722bf78c9e50e50041ffa',
+      });
+      const transaction = await Transaction.create({
+        account_id: account._doc._id,
+        description: 'my salary',
+        amount: 10000,
+        ccy: 'HKD',
+        date: moment().format(),
+      });
+
+      const response = await transactionController.list({});
+      const responseBody = JSON.parse(response.body);
+      expect(response.statusCode).equal(200);
+      expect(responseBody.success).equal(true);
+      expect(responseBody.result.length).equal(1);
+      expect(responseBody.total).equal(1);
+      expect(responseBody.result[0]._id).equal(transaction._doc._id.toString());
+    });
+
+    it('supports pagination', async () => {
+      const event = {
+        queryStringParameters: {
+          limit: 10,
+          skip: 1,
+        },
+      };
+      await Account.remove({});
+      await Transaction.remove({});
+      const account = await Account.create({
+        ccy: 'HKD',
+        name: 'user HKD account 1',
+        user_id: '5b6722bf78c9e50e50041ffa',
+      });
+      const transaction = await Transaction.create({
+        account_id: account._doc._id,
+        description: 'my salary',
+        amount: 10000,
+        ccy: 'HKD',
+        date: moment().format(),
+      });
+
+      const account2 = await Account.create({
+        ccy: 'HKD',
+        name: 'user HKD account 1',
+        user_id: '5b671e429436622812a41ede',
+      });
+      const transaction2 = await Transaction.create({
+        account_id: account2._doc._id,
+        description: 'my salary',
+        amount: 10000,
+        ccy: 'HKD',
+        date: moment().format(),
+      });
+      const response = await transactionController.list(event);
+      const responseBody = JSON.parse(response.body);
+      expect(response.statusCode).equal(200);
+      expect(responseBody.success).equal(true);
+      expect(responseBody.total).equal(2);
+      expect(responseBody.result.length).equal(1);
+      expect(responseBody.result[0]._id).equal(transaction2._doc._id.toString());
+    });
+
+    it('supports query by account_id', async () => {
+      await Account.remove({});
+      await Transaction.remove({});
+      const account = await Account.create({
+        ccy: 'HKD',
+        name: 'user HKD account 1',
+        user_id: '5b6722bf78c9e50e50041ffa',
+      });
+      const transaction = await Transaction.create({
+        account_id: account._doc._id,
+        description: 'my salary',
+        amount: 10000,
+        ccy: 'HKD',
+        date: moment().format(),
+      });
+      
+      const account2 = await Account.create({
+        ccy: 'HKD',
+        name: 'user HKD account 1',
+        user_id: '5b671e429436622812a41ede',
+      });
+      const transaction2 = await Transaction.create({
+        account_id: account2._doc._id,
+        description: 'my salary',
+        amount: 10000,
+        ccy: 'HKD',
+        date: moment().format(),
+      });
+      const event = {
+        queryStringParameters: {
+          account_id: account2._doc._id.toString(),
+        },
+      };
+      const response = await transactionController.list(event);
+      const responseBody = JSON.parse(response.body);
+      expect(response.statusCode).equal(200);
+      expect(responseBody.success).equal(true);
+      expect(responseBody.total).equal(1);
+      expect(responseBody.result.length).equal(1);
+      expect(responseBody.result[0]._id).equal(transaction2._doc._id.toString());
+    });
+  });
 });
