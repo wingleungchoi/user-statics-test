@@ -38,9 +38,10 @@ const create = async (event) => {
 const list = async (event) => {
   const limit = R.path(['queryStringParameters', 'limit'], event);
   const skip = R.path(['queryStringParameters', 'skip'], event);
+  const queryCondition = {};
   try {
-    const total = await Account.count({});
-    const accounts = await Account.find({}, null, { skip, limit });
+    const total = await Account.count(queryCondition);
+    const accounts = await Account.find(queryCondition, null, { skip, limit });
     const formattedAccounts = R.map(account => account._doc, accounts);
     const response = {
       statusCode: 200,

@@ -63,9 +63,19 @@ const create = async (event) => {
 const list = async (event) => {
   const limit = R.path(['queryStringParameters', 'limit'], event);
   const skip = R.path(['queryStringParameters', 'skip'], event);
+  const account_id = R.path(['queryStringParameters', 'account_id'], event);
+  const queryCondition = R.reduce((accumlator, ketValuePairs) => {
+    const key = ketValuePairs[0];
+    const value = ketValuePairs[1];
+    const lens = R.lensProp(key);
+    return value ? R.set(lens, value, accumlator) : accumlator;
+  }, {}, R.toPairs({
+    account_id,
+  }));
+  debugger;
   try {
-    const total = await Transaction.count({});
-    const accounts = await Transaction.find({}, null, { skip, limit });
+    const total = await Transaction.count(queryCondition);
+    const accounts = await Transaction.find(queryCondition, null, { skip, limit });
     const formattedTransactions = R.map(account => account._doc, accounts);
     const response = {
       statusCode: 200,
