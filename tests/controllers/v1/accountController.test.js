@@ -76,7 +76,35 @@ describe('AccountController', async () => {
       expect(response.statusCode).equal(200);
       expect(responseBody.success).equal(true);
       expect(responseBody.result.length).equal(1);
+      expect(responseBody.total).equal(1);
       expect(responseBody.result[0]._id).equal(account._doc._id.toString());
+    });
+
+    it('supports pagination', async () => {
+      const event = {
+        queryStringParameters: {
+          limit: 10,
+          skip: 1,
+        },
+      };
+      await Account.remove({});
+      const account = await Account.create({
+        ccy: 'HKD',
+        name: 'user HKD account 1',
+        user_id: '5b6722bf78c9e50e50041ffa',
+      });
+      const account2 = await Account.create({
+        ccy: 'HKD',
+        name: 'user HKD account 1',
+        user_id: '5b671e429436622812a41ede',
+      });
+      const response = await accountController.list(event);
+      const responseBody = JSON.parse(response.body);
+      expect(response.statusCode).equal(200);
+      expect(responseBody.success).equal(true);
+      expect(responseBody.total).equal(2);
+      expect(responseBody.result.length).equal(1);
+      expect(responseBody.result[0]._id).equal(account2._doc._id.toString());
     });
   });
 });

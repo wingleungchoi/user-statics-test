@@ -35,15 +35,20 @@ const create = async (event) => {
   }
 };
 
-const list = async () => {
+const list = async (event) => {
+  const limit = R.path(['queryStringParameters', 'limit'], event);
+  const skip = R.path(['queryStringParameters', 'skip'], event);
   try {
-    const accounts = await Account.find({});
+    const total = await Account.count({});
+    const accounts = await Account.find({}, null, { skip, limit });
+    debugger;
     const formattedAccounts = R.map(account => account._doc, accounts);
     const response = {
       statusCode: 200,
       body: JSON.stringify({
         success: true,
         result: formattedAccounts,
+        total,
       }),
     };
     return response;
