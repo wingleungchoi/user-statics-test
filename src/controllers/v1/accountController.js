@@ -1,3 +1,4 @@
+const R = require('ramda');
 const { Account } = require('../../models/account');
 
 const create = async (event) => {
@@ -34,7 +35,31 @@ const create = async (event) => {
   }
 };
 
+const list = async () => {
+  try {
+    const accounts = await Account.find({});
+    const formattedAccounts = R.map(account => account._doc, accounts);
+    const response = {
+      statusCode: 200,
+      body: JSON.stringify({
+        success: true,
+        result: formattedAccounts,
+      }),
+    };
+    return response;
+  } catch (error) {
+    const response = {
+      statusCode: 404,
+      body: JSON.stringify({
+        success: false,
+        result: error,
+      }),
+    };
+    return response;
+  }
+};
 
 module.exports = {
   create,
+  list,
 };
