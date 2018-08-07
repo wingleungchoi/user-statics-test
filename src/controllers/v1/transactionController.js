@@ -72,7 +72,6 @@ const list = async (event) => {
   }, {}, R.toPairs({
     account_id,
   }));
-  debugger;
   try {
     const total = await Transaction.count(queryCondition);
     const accounts = await Transaction.find(queryCondition, null, { skip, limit });
