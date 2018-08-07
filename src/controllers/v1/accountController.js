@@ -41,7 +41,6 @@ const list = async (event) => {
   try {
     const total = await Account.count({});
     const accounts = await Account.find({}, null, { skip, limit });
-    debugger;
     const formattedAccounts = R.map(account => account._doc, accounts);
     const response = {
       statusCode: 200,

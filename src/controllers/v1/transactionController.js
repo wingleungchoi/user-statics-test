@@ -1,3 +1,4 @@
+const R = require('ramda');
 const moment = require('moment');
 
 const { Transaction } = require('../../models/transaction');
@@ -59,6 +60,35 @@ const create = async (event) => {
 };
 
 
+const list = async (event) => {
+  const limit = R.path(['queryStringParameters', 'limit'], event);
+  const skip = R.path(['queryStringParameters', 'skip'], event);
+  try {
+    const total = await Transaction.count({});
+    const accounts = await Transaction.find({}, null, { skip, limit });
+    const formattedTransactions = R.map(account => account._doc, accounts);
+    const response = {
+      statusCode: 200,
+      body: JSON.stringify({
+        success: true,
+        result: formattedTransactions,
+        total,
+      }),
+    };
+    return response;
+  } catch (error) {
+    const response = {
+      statusCode: 404,
+      body: JSON.stringify({
+        success: false,
+        result: error,
+      }),
+    };
+    return response;
+  }
+};
+
 module.exports = {
   create,
+  list,
 };
