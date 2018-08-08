@@ -15,8 +15,7 @@ const send = async ({ messageAttributes, messageBody }) => {
     MessageBody: messageBody,
     QueueUrl: process.env.SQS_URL,
   };
-  const a = await sqs.sendMessage(params).promise();
-  return a;
+  await sqs.sendMessage(params).promise();
 };
 
 module.exports = {

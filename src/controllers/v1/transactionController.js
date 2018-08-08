@@ -6,6 +6,26 @@ const { Account } = require('../../models/account');
 const sqs = require('../../services/sqs');
 const { GiniBaseError } = require('../../errors');
 
+const sendSQSMessage = async (insertedTransactionDoc) => {
+  try {
+    await sqs.send({
+      messageAttributes: {
+        Title: {
+          DataType: 'String',
+          StringValue: 'Create Transaction',
+        },
+        WeeksOn: {
+          DataType: 'Number',
+          StringValue: `${moment(insertedTransactionDoc.date).valueOf()}`,
+        },
+      },
+      messageBody: JSON.stringify(insertedTransactionDoc),
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 const create = async (event) => {
   const {
     account_id,
@@ -37,19 +57,9 @@ const create = async (event) => {
     // 2) $inc is in place update
     // #=> support concurrencies when there are many transations
     await Account.update({ _id: account._doc._id }, { $inc: { balance: amount } });
-    await sqs.send({
-      messageAttributes: {
-        Title: {
-          DataType: 'String',
-          StringValue: 'Create Transaction',
-        },
-        WeeksOn: {
-          DataType: 'Number',
-          StringValue: `${moment(insertedTransactionDoc.date).valueOf()}`,
-        },
-      },
-      messageBody: JSON.stringify(insertedTransactionDoc),
-    });
+    
+    // failure in sendSQSMessage shall not affect the flow of create transation
+    await sendSQSMessage(insertedTransactionDoc)
     const response = {
       statusCode: 200,
       body: JSON.stringify({
