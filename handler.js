@@ -8,21 +8,8 @@ if (mongoose.connection.readyState !== 1 && process.env.MONGODB_URI) {
 const AccountController = require('./src/controllers/v1/accountController');
 const TransactionController = require('./src/controllers/v1/transactionController');
 
-module.exports.listTransactions = (event, context, callback) => {
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify([
-      {
-        id: 1,
-      },
-      {
-        id: 2,
-      },
-    ]),
-  };
-
-  callback(null, response);
-};
+module.exports.listTransactions = TransactionController.list;
+module.exports.listAccounts = TransactionController.list;
 
 module.exports.insertAccount = AccountController.create;
 module.exports.insertTransaction = TransactionController.create;
