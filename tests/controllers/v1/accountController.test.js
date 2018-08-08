@@ -24,7 +24,7 @@ describe('AccountController', async () => {
       expect(responseBody.result.ccy).equal(bodyInObject.ccy);
       expect(responseBody.result.name).equal(bodyInObject.name);
     });
-  
+
     it('returns failure when an duplicate request body is provided', async () => {
       const bodyInObject = {
         ccy: 'HKD',
@@ -45,7 +45,7 @@ describe('AccountController', async () => {
       expect(responseBody.success).equal(false);
       expect(responseBody.result.message).equal('E11000 duplicate key error dup key: { : "HKD", : ObjectId(\'5b66dfd558fd6005dda6738f\') }');
     });
-  
+
     it('returns failure when an wrong request body is provided', async () => {
       const bodyInObject = {
         ccy: 'NOT a ccy',
@@ -88,7 +88,7 @@ describe('AccountController', async () => {
         },
       };
       await Account.remove({});
-      const account = await Account.create({
+      await Account.create({
         ccy: 'HKD',
         name: 'user HKD account 1',
         user_id: '5b6722bf78c9e50e50041ffa',

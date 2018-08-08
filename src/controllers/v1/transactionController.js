@@ -57,7 +57,7 @@ const create = async (event) => {
     // 2) $inc is in place update
     // #=> support concurrencies when there are many transations
     await Account.update({ _id: account._doc._id }, { $inc: { balance: amount } });
-    
+
     // failure in sendSQSMessage shall not affect the flow of create transation
     await sendSQSMessage(insertedTransactionDoc);
 
