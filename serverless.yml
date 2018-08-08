@@ -1,8 +1,17 @@
 service: intervieweeBankService
 
+custom:
+  queueName: "Gini-test-categorisation"
+
 provider:
   name: aws
   runtime: nodejs8.10
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "sqs:SendMessage"
+      Resource:
+        Fn::GetAtt: [ SQSQueue, Arn ]
 
 functions:
   listAccounts:
@@ -35,11 +44,21 @@ functions:
   createTransaction:
     environment:
       MONGODB_URI: ${env:MONGODB_URI}
-      SQS_URL: ${env:SQS_URL}
+      SQS_URL:
+        Ref: SQSQueue
     handler: handler.insertTransaction
     events:
-      - sqs: ${env:SQS_ARN}
+      - sqs:
+          arn:
+            Fn::GetAtt: [ SQSQueue, Arn ]
       - http:
           method: post
           path: v1/transactions
           private: false
+
+resources:
+  Resources:
+    SQSQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: ${self:custom.queueName}
