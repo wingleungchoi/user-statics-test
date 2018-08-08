@@ -25,6 +25,7 @@
     "mongodb-memory-server": "^1.9.3"
   },
   "dependencies": {
+    "aws-sdk": "^2.288.0",
     "moment": "^2.22.2",
     "mongoose": "^5.2.6",
     "ramda": "^0.25.0"

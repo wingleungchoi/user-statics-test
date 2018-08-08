@@ -3,6 +3,7 @@ const moment = require('moment');
 
 const { Transaction } = require('../../models/transaction');
 const { Account } = require('../../models/account');
+const sqs = require('../../services/sqs');
 const { GiniBaseError } = require('../../errors');
 
 const create = async (event) => {
@@ -36,6 +37,19 @@ const create = async (event) => {
     // 2) $inc is in place update
     // #=> support concurrencies when there are many transations
     await Account.update({ _id: account._doc._id }, { $inc: { balance: amount } });
+    await sqs.send({
+      messageAttributes: {
+        Title: {
+          DataType: 'String',
+          StringValue: 'Create Transaction',
+        },
+        WeeksOn: {
+          DataType: 'Number',
+          StringValue: `${moment(insertedTransactionDoc.date).valueOf()}`,
+        },
+      },
+      messageBody: JSON.stringify(insertedTransactionDoc),
+    });
     const response = {
       statusCode: 200,
       body: JSON.stringify({

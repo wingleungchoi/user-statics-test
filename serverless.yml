@@ -35,8 +35,10 @@ functions:
   createTransaction:
     environment:
       MONGODB_URI: ${env:MONGODB_URI}
+      SQS_URL: ${env:SQS_URL}
     handler: handler.insertTransaction
     events:
+      - sqs: ${env:SQS_ARN}
       - http:
           method: post
           path: v1/transactions
