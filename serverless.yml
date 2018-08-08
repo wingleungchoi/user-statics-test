@@ -1,11 +1,13 @@
 service: intervieweeBankService
 
 custom:
-  queueName: "Gini-test-categorisation"
+  queueName: "gini-test-categorisation"
 
 provider:
   name: aws
   runtime: nodejs8.10
+  region: us-east-1
+
   iamRoleStatements:
     - Effect: "Allow"
       Action:
