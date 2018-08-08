@@ -40,7 +40,7 @@ describe('TransactionController', async () => {
       expect(responseBody.result.date).to.equal(bodyInObject.date);
       expect(updatedAccountDoc.balance).to.equal(account.balance + bodyInObject.amount);
     });
-  
+
     it('return failure when an wrong request body is provided', async () => {
       const account = await Account.create({
         ccy: 'HKD',
@@ -60,14 +60,13 @@ describe('TransactionController', async () => {
         body: JSON.stringify(bodyInObject),
       };
       const response = await transactionController.create(event);
-      const updatedAccount = await Account.findOne({ _id: account._id });
-      const updatedAccountDoc = updatedAccount._doc;
+      await Account.findOne({ _id: account._id });
       const responseBody = JSON.parse(response.body);
       expect(response.statusCode).equal(404);
       expect(responseBody.success).equal(false);
       expect(responseBody.result.message).equal('Transaction validation failed: amount: Cast to Number failed for value "one thousand" at path "amount"');
     });
-  
+
     it('return failure when account_id is not exit in DB', async () => {
       const absentId = '5b5dd1bc4e2cb20fd1823a68';
       const bodyInObject = {
@@ -106,8 +105,7 @@ describe('TransactionController', async () => {
         body: JSON.stringify(bodyInObject),
       };
       const response = await transactionController.create(event);
-      const updatedAccount = await Account.findOne({ _id: account._id });
-      const updatedAccountDoc = updatedAccount._doc;
+      await Account.findOne({ _id: account._id });
       const responseBody = JSON.parse(response.body);
       expect(response.statusCode).equal(404);
       expect(responseBody.success).equal(false);
@@ -155,7 +153,7 @@ describe('TransactionController', async () => {
         name: 'user HKD account 1',
         user_id: '5b6722bf78c9e50e50041ffa',
       });
-      const transaction = await Transaction.create({
+      await Transaction.create({
         account_id: account._doc._id,
         description: 'my salary',
         amount: 10000,
@@ -192,14 +190,14 @@ describe('TransactionController', async () => {
         name: 'user HKD account 1',
         user_id: '5b6722bf78c9e50e50041ffa',
       });
-      const transaction = await Transaction.create({
+      await Transaction.create({
         account_id: account._doc._id,
         description: 'my salary',
         amount: 10000,
         ccy: 'HKD',
         date: moment().format(),
       });
-      
+
       const account2 = await Account.create({
         ccy: 'HKD',
         name: 'user HKD account 1',
