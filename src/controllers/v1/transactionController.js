@@ -59,7 +59,8 @@ const create = async (event) => {
     await Account.update({ _id: account._doc._id }, { $inc: { balance: amount } });
     
     // failure in sendSQSMessage shall not affect the flow of create transation
-    await sendSQSMessage(insertedTransactionDoc)
+    await sendSQSMessage(insertedTransactionDoc);
+
     const response = {
       statusCode: 200,
       body: JSON.stringify({
@@ -97,7 +98,7 @@ const list = async (event) => {
     account_id,
   }));
   try {
-    const total = await Transaction.count(queryCondition);
+    const total = await Transaction.countDocuments(queryCondition);
     const accounts = await Transaction.find(queryCondition, null, { skip, limit });
     const formattedTransactions = R.map(account => account._doc, accounts);
     const response = {
