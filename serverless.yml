@@ -5,12 +5,14 @@ provider:
   runtime: nodejs8.10
 
 functions:
-  listTransactions:
-    handler: handler.listTransactions
+  listAccounts:
+    handler: handler.listAccounts
+    environment:
+      MONGODB_URI: ${env:MONGODB_URI}
     events:
       - http:
           method: get
-          path: transactions
+          path: v1/accounts
           private: false
   createAccount:
     environment:
@@ -20,6 +22,15 @@ functions:
       - http:
           method: post
           path: v1/accounts
+          private: false
+  listTransactions:
+    handler: handler.listTransactions
+    environment:
+      MONGODB_URI: ${env:MONGODB_URI}
+    events:
+      - http:
+          method: get
+          path: v1/transactions
           private: false
   createTransaction:
     environment:
