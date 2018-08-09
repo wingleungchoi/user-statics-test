@@ -1,3 +1,4 @@
+```
 curl -X POST \
   https://jmwtdw2qxk.execute-api.us-east-1.amazonaws.com/dev/v1/accounts \
   -H 'cache-control: no-cache' \
@@ -8,3 +9,4 @@ curl -X POST \
       "name": "user HKD account 1",
       "user_id": "5b5dd20c241c680ff5b8b609"
     }'
+```
