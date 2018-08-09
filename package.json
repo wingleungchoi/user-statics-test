@@ -22,7 +22,8 @@
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
     "mocha": "^5.2.0",
-    "mongodb-memory-server": "^1.9.3"
+    "mongodb-memory-server": "^1.9.3",
+    "proxyquire": "^2.0.1"
   },
   "dependencies": {
     "aws-sdk": "^2.288.0",

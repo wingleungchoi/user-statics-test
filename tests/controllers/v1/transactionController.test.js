@@ -1,8 +1,11 @@
 require('../../test.setup');
+const proxyquire = require('proxyquire');
 const moment = require('moment');
 const { expect } = require('chai');
 
-const transactionController = require('../../../src/controllers/v1/transactionController');
+const sqsStub = { send: async () => { await Promise.resolve('It is stubbed'); } };
+
+const transactionController = proxyquire('../../../src/controllers/v1/transactionController', { '../../services/sqs': sqsStub });
 const { Transaction } = require('../../../src/models/transaction');
 const { Account } = require('../../../src/models/account');
 
