@@ -7,9 +7,12 @@ if (mongoose.connection.readyState !== 1 && process.env.MONGODB_URI) {
 
 const AccountController = require('./src/controllers/v1/accountController');
 const TransactionController = require('./src/controllers/v1/transactionController');
+const courseController = require('./src/controllers/v1/courseController');
 
 module.exports.listTransactions = TransactionController.list;
 module.exports.listAccounts = TransactionController.list;
 
 module.exports.insertAccount = AccountController.create;
 module.exports.insertTransaction = TransactionController.create;
+
+module.exports.insertStudyEventOfCourseSession = courseController.create;
