@@ -3,6 +3,13 @@ module.exports = {
     "env": {
         "mocha": true
     },
+    "settings": {
+        "import/resolver": {
+          "node": {
+            "paths": ["."]
+          }
+        }
+      },
     "rules": {
         "camelcase": [
             0,

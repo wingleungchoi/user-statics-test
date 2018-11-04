@@ -1,6 +1,6 @@
-const GINI = {
+const SENECA = {
   // for simplified: only two ccy in this test
   CURRENCIES: ['HKD', 'USD'],
 };
 
-module.exports.GINI = GINI;
+module.exports.SENECA = SENECA;

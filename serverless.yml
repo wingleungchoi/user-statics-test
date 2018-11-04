@@ -1,66 +1,16 @@
-service: intervieweeBankService
-
-custom:
-  queueName: "gini-test-categorisation"
+service: senecaService
 
 provider:
   name: aws
   runtime: nodejs8.10
   region: us-east-1
 
-  iamRoleStatements:
-    - Effect: "Allow"
-      Action:
-        - "sqs:SendMessage"
-      Resource:
-        Fn::GetAtt: [ SQSQueue, Arn ]
-
 functions:
-  listAccounts:
-    handler: handler.listAccounts
-    environment:
-      MONGODB_URI: ${env:MONGODB_URI}
-    events:
-      - http:
-          method: get
-          path: v1/accounts
-          private: false
   createAccount:
-    environment:
-      MONGODB_URI: ${env:MONGODB_URI}
-    handler: handler.insertAccount
+    handler: handler.insertStudyEventOfCourseSession
     events:
       - http:
           method: post
-          path: v1/accounts
-          private: false
-  listTransactions:
-    handler: handler.listTransactions
-    environment:
-      MONGODB_URI: ${env:MONGODB_URI}
-    events:
-      - http:
-          method: get
-          path: v1/transactions
-          private: false
-  createTransaction:
-    environment:
-      MONGODB_URI: ${env:MONGODB_URI}
-      SQS_URL:
-        Ref: SQSQueue
-    handler: handler.insertTransaction
-    events:
-      - sqs:
-          arn:
-            Fn::GetAtt: [ SQSQueue, Arn ]
-      - http:
-          method: post
-          path: v1/transactions
+          path: api/v1/course/{courseId}
           private: false
 
-resources:
-  Resources:
-    SQSQueue:
-      Type: AWS::SQS::Queue
-      Properties:
-        QueueName: ${self:custom.queueName}
