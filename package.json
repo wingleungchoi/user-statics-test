@@ -28,6 +28,10 @@
   "dependencies": {
     "aws-sdk": "^2.288.0",
     "moment": "^2.22.2",
-    "ramda": "^0.25.0"
+    "pg": "^7.6.0",
+    "pg-hstore": "^2.3.2",
+    "ramda": "^0.25.0",
+    "sequelize": "^4.41.0",
+    "sequelize-cli": "^5.2.0"
   }
 }
