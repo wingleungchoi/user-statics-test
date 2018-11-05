@@ -1,4 +1,4 @@
-export default (sequelize, DATA_TYPES) => {
+module.exports = (sequelize, DATA_TYPES) => {
   const userSession = sequelize.define('UserSession', {
     id: {
       type: DATA_TYPES.UUID,

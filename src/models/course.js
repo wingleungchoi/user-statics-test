@@ -1,4 +1,4 @@
-export default (sequelize, DATA_TYPES) => {
+module.exports = (sequelize, DATA_TYPES) => {
   const course = sequelize.define('Course', {
     id: {
       type: DATA_TYPES.UUID,

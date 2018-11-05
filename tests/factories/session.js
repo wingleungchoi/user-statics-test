@@ -1,9 +1,9 @@
-import * as R from 'ramda';
-import * as faker from 'faker';
-import models from '../../src/models';
+const R = require('ramda');
+const faker = require('faker');
+const models = require('../../src/models');
 
 const sessionFactory = (factory) => {
-  factory.define('sesssion', models.Session, (buildOptions = {}) => {
+  factory.define('session', models.Session, (buildOptions = {}) => {
     return {
       id: R.propOr(faker.random.uuid(), 'id', buildOptions),
       courseId: R.prop('courseId', buildOptions),
@@ -12,8 +12,5 @@ const sessionFactory = (factory) => {
     };
   });
 };
-
-export default { sessionFactory };
-export { sessionFactory };
 
 module.exports = { sessionFactory };

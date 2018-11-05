@@ -1,6 +1,6 @@
-import * as R from 'ramda';
-import * as faker from 'faker';
-import models from '../../src/models';
+const R = require('ramda');
+const faker = require('faker');
+const models = require('../../src/models');
 
 const courseFactory = (factory) => {
   factory.define('course', models.Course, (buildOptions = {}) => {
@@ -11,8 +11,5 @@ const courseFactory = (factory) => {
     };
   });
 };
-
-export default { courseFactory };
-export { courseFactory };
 
 module.exports = { courseFactory };
