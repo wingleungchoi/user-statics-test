@@ -9,6 +9,10 @@ module.exports = {
       sessionId: {
         allowNull: false,
         type: Sequelize.UUID,
+        references: {
+          model: 'Sessions',
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: false,

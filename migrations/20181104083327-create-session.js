@@ -9,6 +9,10 @@ module.exports = {
       courseId: {
         allowNull: false,
         type: Sequelize.UUID,
+        references: {
+          model: 'Courses',
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: false,

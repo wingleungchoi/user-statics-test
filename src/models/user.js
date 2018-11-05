@@ -13,6 +13,7 @@ module.exports = (sequelize, DATA_TYPES) => {
       models.userSession,
       {
         as: { singular: 'userSession', plural: 'userSessions' },
+        foreignKey: 'userId',
       },
     );
   };

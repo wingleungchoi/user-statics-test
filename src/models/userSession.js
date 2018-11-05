@@ -14,13 +14,23 @@ module.exports = (sequelize, DATA_TYPES) => {
     totalModulesStudied: {
       type: DATA_TYPES.UUID,
       defaultValue: 0,
+      validate: {
+        min: 0,
+      },
     },
     averageScore: {
       type: DATA_TYPES.DECIMAL,
+      validate: {
+        max: 100,
+        min: 0,
+      },
     },
     timeStudied: {
       type: DATA_TYPES.DECIMAL,
       defaultValue: 0,
+      validate: {
+        min: 0,
+      },
     },
   }, {});
 

@@ -13,6 +13,7 @@ module.exports = (sequelize, DATA_TYPES) => {
       models.session,
       {
         as: { singular: 'session', plural: 'sessions' },
+        foreignKey: 'courseId',
       },
     );
   };

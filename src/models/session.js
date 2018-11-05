@@ -24,6 +24,7 @@ module.exports = (sequelize, DATA_TYPES) => {
       models.courseModule,
       {
         as: { singular: 'courseModule', plural: 'courseModules' },
+        foreignKey: 'sessionId',
       },
     );
   };

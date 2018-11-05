@@ -9,10 +9,18 @@ module.exports = {
       userId: {
         allowNull: false,
         type: Sequelize.UUID,
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
       },
       sessionId: {
         allowNull: false,
         type: Sequelize.UUID,
+        references: {
+          model: 'Sessions',
+          key: 'id',
+        },
       },
       totalModulesStudied: {
         allowNull: false,
