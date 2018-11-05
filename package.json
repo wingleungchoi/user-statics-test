@@ -21,6 +21,8 @@
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
+    "factory-girl": "^5.0.2",
+    "faker": "^4.1.0",
     "mocha": "^5.2.0",
     "mongodb-memory-server": "^1.9.3",
     "proxyquire": "^2.0.1"
