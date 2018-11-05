@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const user = require('./user');
 const course = require('./course');
 const session = require('./session');
-const couserModule = require('./couserModule');
+const courseModule = require('./courseModule');
 const userSession = require('./userSession');
 const config = require('../../config/config.json')[process.env.NODE_ENV || 'development'];
 
@@ -14,11 +14,11 @@ const DATA_TYPES = Sequelize;
 const db = {
   sequelize,
   Sequelize,
-  User: user(sequelize, DATA_TYPES),
-  Course: course(sequelize, DATA_TYPES),
-  Session: session(sequelize, DATA_TYPES),
-  CouserModule: couserModule(sequelize, DATA_TYPES),
-  UserSession: userSession(sequelize, DATA_TYPES),
+  user: user(sequelize, DATA_TYPES),
+  course: course(sequelize, DATA_TYPES),
+  session: session(sequelize, DATA_TYPES),
+  courseModule: courseModule(sequelize, DATA_TYPES),
+  userSession: userSession(sequelize, DATA_TYPES),
 };
 
 Object.keys(db).forEach((modelName) => {

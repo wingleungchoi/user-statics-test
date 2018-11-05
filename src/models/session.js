@@ -10,5 +10,23 @@ module.exports = (sequelize, DATA_TYPES) => {
     },
   }, {});
 
+  session.associate = (models) => {
+    // associations can be defined here
+    models.session.belongsTo(
+      models.course,
+      {
+        foreignKey: 'courseId',
+        as: 'course',
+      },
+    );
+
+    models.session.hasMany(
+      models.courseModule,
+      {
+        as: { singular: 'courseModule', plural: 'courseModules' },
+      },
+    );
+  };
+
   return session;
 };

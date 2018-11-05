@@ -7,5 +7,15 @@ module.exports = (sequelize, DATA_TYPES) => {
     },
   }, {});
 
+  user.associate = (models) => {
+    // associations can be defined here
+    models.user.hasMany(
+      models.userSession,
+      {
+        as: { singular: 'userSession', plural: 'userSessions' },
+      },
+    );
+  };
+
   return user;
 };

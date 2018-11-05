@@ -1,11 +1,10 @@
-const R = require('ramda');
-const { factory } = require('../factories');
-const Models = require ('../../src/models');
-const userSessionService = require('../../src/services/userSession');
 const chai = require('chai');
 
-const { expect } = 'chai';
+const { factory } = require('../factories');
+const Models = require('../../src/models');
+const userSessionService = require('../../src/services/userSession');
 
+const { expect } = chai;
 
 describe('userSessionService', async () => {
   beforeEach(async () => {
@@ -18,9 +17,11 @@ describe('userSessionService', async () => {
       const course = await factory.create('course');
       const session = await factory.create('session', {}, { courseId: course.id });
       const result = await userSessionService.create({
-        user: user.id,
-        course: course.id,
-        sessionId: session.id,
+        userSessionModel: Models.userSession,
+      }, {
+        userId: user.dataValues.id,
+        courseId: course.dataValues.id,
+        sessionId: session.dataValues.id,
         totalModulesStudied: 2,
         averageScore: 10.1,
         timeStudied: 10.1,

@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('UsersSessions', {
+    return queryInterface.createTable('UserSessions', {
       id: {
         allowNull: false,
         primaryKey: true,
@@ -14,6 +14,18 @@ module.exports = {
         allowNull: false,
         type: Sequelize.UUID,
       },
+      totalModulesStudied: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
+      averageScore: {
+        allowNull: false,
+        type: Sequelize.DECIMAL,
+      },
+      timeStudied: {
+        allowNull: false,
+        type: Sequelize.DECIMAL,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -25,6 +37,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('UsersSessions');
+    return queryInterface.dropTable('UserSessions');
   },
 };

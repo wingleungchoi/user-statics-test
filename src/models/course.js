@@ -7,5 +7,15 @@ module.exports = (sequelize, DATA_TYPES) => {
     },
   }, {});
 
+  course.associate = (models) => {
+    // associations can be defined here
+    models.course.hasMany(
+      models.session,
+      {
+        as: { singular: 'session', plural: 'sessions' },
+      },
+    );
+  };
+
   return course;
 };

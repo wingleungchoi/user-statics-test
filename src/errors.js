@@ -1,5 +1,5 @@
 // create own error to prevent monkey patching
-class GiniBaseError extends Error {
+class SenecaBaseError extends Error {
   // ref: https://stackoverflow.com/questions/18391212/is-it-not-possible-to-stringify-an-error-using-json-stringify
   toJSON() {
     const alt = {};
@@ -13,5 +13,5 @@ class GiniBaseError extends Error {
 }
 
 module.exports = {
-  GiniBaseError,
+  SenecaBaseError,
 };
