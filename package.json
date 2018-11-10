@@ -4,7 +4,7 @@
   "description": "- node version: v8.10 - deploy script:     - `$ AWS_ACCESS_KEY_ID=xxxxx AWS_SECRET_ACCESS_KEY=xxxxx  serverless deploy`     - note: serverless requires this AWS_ACCESS_KEY_ID has AdministratorAccess right in IAM",
   "main": "handler.js",
   "scripts": {
-    "test": "NODE_PATH=. mocha tests/**/*.test.js && ./node_modules/.bin/eslint ."
+    "test": "NODE_ENV=test NODE_PATH=. mocha tests/**/*.test.js --exit && ./node_modules/.bin/eslint src/* tests/*"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,8 @@
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
+    "factory-girl": "^5.0.2",
+    "faker": "^4.1.0",
     "mocha": "^5.2.0",
     "mongodb-memory-server": "^1.9.3",
     "proxyquire": "^2.0.1"
@@ -28,6 +30,10 @@
   "dependencies": {
     "aws-sdk": "^2.288.0",
     "moment": "^2.22.2",
-    "ramda": "^0.25.0"
+    "pg": "^7.6.0",
+    "pg-hstore": "^2.3.2",
+    "ramda": "^0.25.0",
+    "sequelize": "^4.41.0",
+    "sequelize-cli": "^5.2.0"
   }
 }

@@ -1,4 +1,3 @@
-require('tests/test.setup');
 const { expect } = require('chai');
 
 const courseController = require('src/controllers/v1/courseController');
